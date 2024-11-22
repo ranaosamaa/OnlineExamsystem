@@ -4,24 +4,26 @@ import java.lang.*;
 import java.io.*;
 import java.util.*;
 
-public class Exam implements Serializable, FileHandler {
+public class Exam implements Serializable, FileHandler<Exam> {
     private int examId;
-    private ArrayList<Question> questions;
+    protected ArrayList<Question> questions;
     private String subject;
     private Timer timeLimit;
     private double fullMark;
-    private double grade;
-    private static ArrayList<Exam> examList=new ArrayList<>();
+    protected double grade;
+    protected static ArrayList<Exam> examList=new ArrayList<>();
     private static File examFile =new File("exams.bin");
 
-    //constructor
-    public Exam (int examId, ArrayList<Question> questions,String subject,Timer timeLimit,double fullMark,double grade){
+
+    public Exam(){}
+
+    public Exam (int examId, ArrayList<Question> questions,String subject,Timer timeLimit,double fullMark){
         this.examId=examId;
         this.questions =questions;
         this.subject=subject;
         this.timeLimit=timeLimit;
         this.fullMark=fullMark;
-        this.grade=grade;
+        examList.add(this);
     }
 
     public int getExamId(){
@@ -67,13 +69,16 @@ public class Exam implements Serializable, FileHandler {
         Exam.examList=(ArrayList<Exam>) examList;
     }
 
-    @Override
-    public File saveToFile(File examFile, ArrayList examList) {
+
+    public File saveToFile() {
         return FileHandler.super.saveToFile(examFile, examList);
     }
 
-    @Override
-    public ArrayList loadFromFile(File examFile, ArrayList examList) {
+
+    public ArrayList<Exam> loadFromFile() {
         return FileHandler.super.loadFromFile(examFile, examList);
+    }
+    public String toString(){
+        return examId+"\n"+subject+"\n"+timeLimit+"\n"+fullMark+"\n"+grade+"\n"+"\n"+questions+"\n";
     }
 }

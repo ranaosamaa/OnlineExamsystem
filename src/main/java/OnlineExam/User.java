@@ -2,12 +2,14 @@ package OnlineExam;
 
 import java.io.*;
 
-abstract  public class User implements Serializable {
+abstract public class User implements Serializable {
 
    protected int userId;
-   private String userName;
-   private String password;
-   private UserType userType;
+   protected String userName;
+   protected String password;
+   protected UserType userType;
 
-   public abstract boolean logIn(String userName, String Password);
+   public boolean logIn(String userName, String Password){
+      return false;
+   };
 }

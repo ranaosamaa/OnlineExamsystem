@@ -8,12 +8,18 @@ public class Student extends User implements FileHandler<Student> {
 
     private ArrayList<Exam> studentResults;
     private static ArrayList<Student> studentsList;
-    private static final File studentsFile =new File("studentsF.bin");
+    private static File studentsFile =new File("studentsF.bin");
 
-    public Student() {}
-    public Student(int userId) {
+    public Student() {
+        this.userType = UserType.Student;
+    }
+    public Student(int userId, String userName, String password) {
+        this.userType = UserType.Student;
+        this.userName = userName;
+        this.password = password;
         this.userId = userId;
         this.studentResults = new ArrayList<>();
+
     }
 
     public void takeExam(Exam exam) {
@@ -25,25 +31,25 @@ public class Student extends User implements FileHandler<Student> {
     }
 
     public void viewResults(ArrayList<Exam> exams) {
-
+        for(Exam exam : exams) {
+            System.out.println("Exam Id: "+exam.getExamId()+"  Exam Grade: "+exam.getGrade()+"/"+exam.getFullMark());
+        }
     }
 
-    // getters and setters
     public static ArrayList<Student> getStudentsList() {return studentsList;}
     public static void setStudentsList(ArrayList<Student> studentsList) {Student.studentsList = studentsList;}
     public ArrayList<Exam> getStudentResults() {return studentResults;}
     public void setStudentResults(ArrayList<Exam> studentResults) {this.studentResults = studentResults;}
 
-    @Override
-    public boolean logIn(String userName, String Password) {
-        return false;
-    }
 
-    public File saveToFile(File studentsFile, ArrayList<Student> studentsList) {
+    public File saveToFile() {
         return FileHandler.super.saveToFile(studentsFile, studentsList);
     }
 
-    public ArrayList<Student> loadFromFile(File studentsFile, ArrayList<Student> studentsList) {
+    public ArrayList<Student> loadFromFile() {
         return FileHandler.super.loadFromFile(studentsFile, studentsList);
+    }
+    public String toString() {
+        return this.userType+"\t"+this.userName + "\t" + this.userId + "\t" + this.studentResults;
     }
 }

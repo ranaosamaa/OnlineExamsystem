@@ -4,9 +4,17 @@ import java.lang.*;
 import java.io.*;
 import java.util.*;
 public class Admin extends User {
-    @Override
-    public boolean logIn(String userName, String Password) {
-        return false;
+    public Admin() {
+        this.userType=UserType.Admin;
+    }
+    public Admin(int userId, String userName,String password) {
+        this.userType = UserType.Admin;
+        this.userId = userId;
+        this.userName = userName;
+        this.password = password;
     }
 
+    public String toString() {
+        return this.userType+": "+this.userId+"\t"+this.userName+"\t";
+    }
 }

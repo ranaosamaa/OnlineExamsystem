@@ -6,21 +6,20 @@ import java.util.*;
 
 public class Question implements Serializable, FileHandler<Question>{
     private String questionText;
-    private String[] options = new String[4];
+    protected String[] options = new String[4];
     private String correctAnswer;
     private String studentAnswer;
-    private static ArrayList<Question> questionBank = new ArrayList<>();
+    protected static ArrayList<Question> questionBank = new ArrayList<>();
     private double mark;
-    private static final File questionFile =new File("questionBankF.bin");
+    private static File questionFile =new File("questionBankF.bin");
 
 
-    public Question (){}
+    public Question (){questionBank.add(this);}
 
-    public Question (String questionText, String[] options, String correctAnswer, String studentAnswer, double mark){
+    public Question (String questionText, String[] options, String correctAnswer, double mark){
         this.questionText=questionText;
         this.options=options;
         this.correctAnswer=correctAnswer;
-        this.studentAnswer=studentAnswer;
         this.mark=mark;
         questionBank.add(this);
     }
@@ -32,8 +31,9 @@ public class Question implements Serializable, FileHandler<Question>{
         this.questionText=questionText;
     }
     public String[] getOptions(){
-        return options;
-    }
+        for(int op=0; op<this.options.length; op++)
+            System.out.println(op+1 +". "+ options[op]);
+        return options;}
     public void setOptions(String[] options){
         this.options=options;
     }
@@ -52,8 +52,8 @@ public class Question implements Serializable, FileHandler<Question>{
     public static List<Question> getQuestionBank(){
         return questionBank;
     }
-    public static void setQuestionBank(List<Question> questionBank){
-        Question.questionBank=(ArrayList<Question>) questionBank;
+    public static void setQuestionBank(ArrayList<Question> questionBank){
+        Question.questionBank= questionBank;
     }
     public double getMark(){
         return mark;
@@ -66,14 +66,19 @@ public class Question implements Serializable, FileHandler<Question>{
         return correctAnswer.equals(studentAnswer);
     }
 
-    public File saveToFile(File questionFile, ArrayList<Question> questionBank) {
+    public File saveToFile() {
 
         return FileHandler.super.saveToFile(questionFile, questionBank);
     }
 
 
-    public ArrayList<Question> loadFromFile(File questionFile, ArrayList<Question> questionBank){
+    public ArrayList<Question> loadFromFile(){
         return FileHandler.super.loadFromFile(questionFile, questionBank);
 }
-
+    public String toString(){
+//        System.out.println(questionText)
+//    for(int op=0; op<this.options.length; op++)
+//            System.out.println(op + 1 + ". " + this.options[op]);
+//        return " ";
+        return questionText + "\n" +Arrays.toString(options);}
 }
