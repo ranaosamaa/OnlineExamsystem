@@ -4,6 +4,7 @@ import java.lang.*;
 import java.io.*;
 import java.util.*;
 public class Admin extends User {
+    protected static Admin[] admins= new Admin[2];
     public Admin() {
         this.userType=UserType.Admin;
     }
@@ -16,5 +17,10 @@ public class Admin extends User {
 
     public String toString() {
         return this.userType+": "+this.userId+"\t"+this.userName+"\t";
+    }
+
+    @Override
+    public void displayMenu() {
+
     }
 }

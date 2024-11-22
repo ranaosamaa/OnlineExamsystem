@@ -7,7 +7,7 @@ import java.util.ArrayList;
 public class Student extends User implements FileHandler<Student> {
 
     private ArrayList<Exam> studentResults;
-    private static ArrayList<Student> studentsList;
+    protected static ArrayList<Student> studentsList;
     private static File studentsFile =new File("studentsF.bin");
 
     public Student() {
@@ -51,5 +51,10 @@ public class Student extends User implements FileHandler<Student> {
     }
     public String toString() {
         return this.userType+"\t"+this.userName + "\t" + this.userId + "\t" + this.studentResults;
+    }
+
+    @Override
+    public void displayMenu() {
+
     }
 }

@@ -4,7 +4,7 @@ import java.lang.*;
 import java.io.*;
 import java.util.*;
 public class Instructor extends User implements FileHandler<Instructor> {
-    private static ArrayList<Instructor> instructorsList = new ArrayList<Instructor>();
+    protected static ArrayList<Instructor> instructorsList = new ArrayList<Instructor>();
     private ArrayList<Student> students = new ArrayList<>();
     private static File instructorsFile =new File("instructorsF.bin");
 
@@ -73,5 +73,10 @@ public class Instructor extends User implements FileHandler<Instructor> {
 
     public String toString() {
         return this.userType+"\t"+this.userName + "\t" + this.userId + "\t" + this.students;
+    }
+
+    @Override
+    public void displayMenu() {
+
     }
 }
